@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Выше 3 Мета-теги ** должны прийти в первую очередь в голове; любой другой руководитель контент *после* эти теги -->  
+    <title>Главная</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Bootstrap -->  
+    <link href="/../css/bootstrap.min.css" rel="stylesheet">
+	<link href="/../css/starter-template.css" rel="stylesheet">
+	<link href="/../css/theme.css" rel="stylesheet">
+  </head>
+  <body>	  
+	  
+    <? include("navbar.php");	?>	  
+	  
+	<div class="container">
+		<div class="starter-template">
+			<h1>Главная страница</h1>
+            <div class="conteiner" style="text-align: center;">
+                <ul class="nav">
+                    <li class="active"><a href="/index">Рецепты</a></li>
+                    <li class="active"><a href="/ingredient/index">Ингредиенты</a></li>
+                </ul>
+            </div>
+		</div>
+    </div>
+    <div class="container">
+        
+		<? if (isset($error)): ?>
+			<div class="alert alert-danger" role="alert" align="center" ><? echo  $error; ?></div>
+		<? endif; ?>
+        
+        <? if (isset($recipe_list)): ?>
+            <? foreach ($recipe_list as $recipe): ?>
+            <div class="column_recipe">
+                <div class="row starter-template">
+                    <h2> Название: <a href="/recipe/view/<? echo $recipe['id']; ?>"><? echo $recipe['name'] ?></a> </h2>
+                    <h2>id: <? echo $recipe['id'] ?></h2>
+                </div>
+            </div>
+            <? endforeach; ?>
+        <? endif; ?>
+        <? if (isset($ingredient_list)): ?>
+            <? foreach ($ingredient_list as $ingredient): ?>
+            <div class="column_ingredient">
+                <div class="row starter-template">
+                    <h2> Название: <a href="/ingredient/view/<? echo $ingredient['id']; ?>"><? echo $ingredient['name'] ?></a> </h2>
+                    <h2>id: <? echo $ingredient['id'] ?></h2>
+                </div>
+            </div>
+            <? endforeach; ?>
+        <? endif; ?>
+    </div>
+    <? if (isset($recipe_list_count)): ?>
+        <? if ($recipe_list_count / 5 > 1): ?>
+            <div class="container starter-template">
+                <ul class="pagination">
+                    <? for($i = 1; $i < $recipe_list_count / 5 + 1; $i++): ?>
+                        <li>
+                            <a href="/index/page/<? echo $i; ?>"><button><? echo $i; ?></button></a>
+                        </li>
+                    <? endfor; ?>
+                </ul>
+
+            </div>
+        <? endif; ?>
+    <? endif; ?>
+    <? if (isset($ingredient_list_count)): ?>
+        <? if ($ingredient_list_count / 5 > 1): ?>
+            <div class="container starter-template">
+                <ul class="pagination">
+                    <? for($i = 1; $i < $ingredient_list_count / 5 + 1; $i++): ?>
+                        <li>
+                            <a href="/ingredient/index/page/<? echo $i; ?>"><button><? echo $i; ?></button></a>
+                        </li>
+                    <? endfor; ?>
+                </ul>
+
+            </div>
+        <? endif; ?>
+    <? endif; ?>
+    <div class="container starter-template">	
+	</div> 	 
+	  
+  </body>
+</html>

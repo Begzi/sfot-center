@@ -1,0 +1,5 @@
+{
+    "require": {
+        "miladrahimi/phprouter": "5.*"
+    }
+}

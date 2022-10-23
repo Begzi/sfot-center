@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Выше 3 Мета-теги ** должны прийти в первую очередь в голове; любой другой руководитель контент *после* эти теги -->  
+    <title>Главная</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Bootstrap -->  
+    <link href="/../../css/bootstrap.min.css" rel="stylesheet">
+	<link href="/../../css/starter-template.css" rel="stylesheet">
+	<link href="/../../css/theme.css" rel="stylesheet">
+	  
+  </head>
+  <body>	  
+	  
+    <? include(__DIR__ . '/../navbar.php');	?>	  
+	  
+	<div class="container">
+		<div class="starter-template">
+			<h1>Редактирование рецепта</h1>
+		</div>
+    </div>
+    <div class="container">	
+		<? if (isset($error)): ?>
+			<div class="alert alert-danger" role="alert" align="center" ><? echo  $error; ?></div>
+		<? endif; ?>
+        
+		<form class="form-recipeAdd" action="/recipe/update/<? echo $recipe['id'] ?>" method="post">
+            <label for="inputLogin" class="sr-only">Название блюда</label>
+			<input type="text" id="inputLogin" class="form-control" name="name" value="<? echo $recipe['name'] ?>" required autofocus>
+			<label for="inputPassword" class="sr-only">Фото</label>
+			<input type="text" id="inputPassword" class="form-control"  value="<? echo $recipe['photo'] ?>" name="photo">
+			<label for="inputLogin" class="sr-only">Ингредиенты</label>
+			<select name="recipe_ingredient_id" id="filters" class="select2" multiple="multiple"
+                    data-placeholder="Выбор фильтров" style="width: 100%;" >
+					<? foreach ($ingredients as $ingredient):?>
+						<? if (stristr($selected_ingredients, strval($ingredient['id'])) !== FALSE): ?>
+                    		<option value="<? echo $ingredient['id']; ?>" selected><? echo $ingredient['name']; ?> </option>
+						<? else: ?>
+                    		<option value="<? echo $ingredient['id']; ?>"><? echo $ingredient['name']; ?> </option>
+						<? endif; ?>
+					<? endforeach; ?>
+            </select>
+			<input type="text" id="ingredients" class="form-control" name="ingredients" style="display: none;">
+            <textarea name="description" id="description_1" class="form-control" cols="30" rows="10" placeholder="Способ приготовления"><? echo $recipe['description'] ?>"</textarea>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" id="form-click">Добавить</button>
+		</form>
+	</div> 	 
+	<script type="text/javascript">
+		function getSelectValues(select) {
+			var result = [];
+			var options = select && select.options;
+			var opt;
+
+			for (var i=0, iLen=options.length; i<iLen; i++) {
+				opt = options[i];
+
+				if (opt.selected) {
+				result.push(opt.value || opt.text);
+				}
+			}
+			return result;
+		}
+		let btn = document.querySelector('#form-click');
+		btn.addEventListener('click', function(){
+			let chosen = getSelectValues(document.querySelector('#filters'));
+			
+			alert(chosen);
+			document.querySelector('#ingredients').value = chosen;
+		})
+	</script>
+	  
+  </body>
+</html>

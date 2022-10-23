@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Выше 3 Мета-теги ** должны прийти в первую очередь в голове; любой другой руководитель контент *после* эти теги -->  
+    <title>Добавление</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Bootstrap -->  
+    <link href="/../../css/bootstrap.min.css" rel="stylesheet">
+	<link href="/../../css/starter-template.css" rel="stylesheet">
+	<link href="/../../css/theme.css" rel="stylesheet">
+	  
+  </head>
+  <body>	  
+	  
+    <? include(__DIR__ . '/../navbar.php');	?>	  
+	  
+	<div class="container">
+		<div class="starter-template">
+			<h1>Редактирование ингредиента</h1>
+		</div>
+    </div>
+    <div class="container">	
+		<? if (isset($error)): ?>
+			<div class="alert alert-danger" role="alert" align="center" ><? echo  $error; ?></div>
+		<? endif; ?>
+        
+		<form class="form-ingredientAdd" action="/ingredient/update/<? echo $ingredient['id']; ?>" method="post">
+            <label for="inputLogin" class="sr-only">Название ингредиента</label>
+			<input type="text" id="inputLogin" class="form-control" placeholder="Название блюда" name="name" value="<? echo $ingredient['name'] ?>" required autofocus>
+			<label for="inputPassword" class="sr-only">Стоимость</label>
+			<input type="text" id="inputPassword" class="form-control" placeholder="Стоимость" value="<? echo $ingredient['cost'] ?>" name="cost">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Добавить</button>
+		</form>
+	</div> 	 
+	  
+  </body>
+</html>

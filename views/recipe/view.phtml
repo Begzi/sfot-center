@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Выше 3 Мета-теги ** должны прийти в первую очередь в голове; любой другой руководитель контент *после* эти теги -->  
+    <title>Главная</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Bootstrap -->  
+    <link href="/../../css/bootstrap.min.css" rel="stylesheet">
+	<link href="/../../css/starter-template.css" rel="stylesheet">
+	<link href="/../../css/theme.css" rel="stylesheet">
+	  
+  </head>
+  <body>	  
+	  
+    <? include(__DIR__ . '/../navbar.php');	?>	  
+	  
+	<div class="container">
+		<? if (isset($error)): ?>
+			<div class="alert alert-danger" role="alert" align="center" ><? echo  $error; ?></div>
+		<? endif; ?>
+		<div class="starter-template">
+			<h1>Рецепт <? echo $recipe['name']; ?></h1>
+		</div>
+        <a href="/recipe/edit/<? echo $recipe['id']; ?>">
+            <button class="btn-warning">
+                <span style = "color: black">Редактировать</span>
+            </button>
+        </a>
+        <a href="/recipe/delete/<? echo $recipe['id'] ?>">
+            <button class="btn-danger">
+                <span style = "color: black">Удалить</span>
+            </button>
+        </a>
+    </div>
+    <div class="container">
+		<div class="starter-template">
+        
+            <? if (count($ingredients) > 0): ?>
+                <? foreach ($ingredients as $ingredient):?>
+                    <div class="row">
+                        <span><a href="/ingredient/view/<? echo $ingredient['id']; ?>"><? echo $ingredient['name']; ?> </a>стоимость 1шт.: <? echo $ingredient['cost']; ?></span>
+                    </div>
+                <? endforeach; ?>
+            <? endif; ?>
+            <h3><? echo $recipe['description'] ?></h3>
+        </div>
+    </div>
+	  
+  </body>
+</html>
